@@ -1,0 +1,71 @@
+@Metadata.layer: #CORE
+@UI: {
+  headerInfo: {
+    typeName: 'Bill',
+    typeNamePlural: 'Bills',
+    title: { type: #STANDARD, label: 'Bill', value: 'BillNumber' }
+  }
+}
+annotate entity ZC_HDR_EC57 with
+{
+  @UI.facet: [
+    {
+      id: 'BillHeader',
+      purpose: #STANDARD,
+      type: #IDENTIFICATION_REFERENCE,
+      label: 'Bill Details',
+      position: 10
+    },
+    {
+      id: 'BillItems',
+      purpose: #STANDARD,
+      type: #LINEITEM_REFERENCE,
+      label: 'Item Details',
+      position: 20,
+      targetElement: '_BillItems' 
+    }
+  ]
+
+  @UI.hidden: true
+  BillUuid;
+
+  @UI: { lineItem: [{position: 10, label: 'Bill Number'}],
+         identification: [{position: 10, label: 'Bill Number'}],
+         selectionField: [{position: 10}]}
+  BillNumber;
+
+  @UI: { lineItem: [{position: 20, label: 'Customer Name'}],
+         identification: [{position: 20, label: 'Customer Name'}],
+         selectionField: [{position: 20}]}
+  CustomerName;
+
+  @UI: { lineItem: [{position: 30, label: 'Billing Date'}],
+         identification: [{position: 30, label: 'Billing Date'}],
+         selectionField: [{position: 30}]}
+  BillingDate;
+
+  @UI: { lineItem: [{position: 40, label: 'Total Amount'}],
+         identification: [{position: 40, label: 'Total Amount'}] }
+  TotalAmount;
+  
+  @UI: { identification: [{position: 45, label: 'Currency'}] }
+  Currency;
+
+  @UI: { lineItem: [{position: 50, label: 'Payment Status'}],
+         identification: [{position: 50, label: 'Payment Status'}],
+         selectionField: [{position: 40}]}
+  PaymentStatus;
+
+  @UI.hidden: true
+  LocalCreatedBy;
+  
+  @UI.hidden: true
+  LocalCreatedAt;
+  
+  @UI.hidden: true
+  LocalLastChangedBy;
+  
+  @UI.hidden: true
+  LocalLastChangedAt;
+
+}

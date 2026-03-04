@@ -1,0 +1,79 @@
+unmanaged implementation in class zbp_i_saver_ec57 unique;
+strict ( 2 );
+with draft; // Crucial for Fiori Elements unmanaged scenarios
+
+define behavior for ZI_HDR_EC57 alias BillHeader
+implementation in class zbp_i_hdr_ec57 unique
+draft table zbill_hdr_d57 // Ensure this table is updated via Ctrl+1
+lock master
+total etag LastChangedAt
+authorization master ( instance )
+etag master LocalLastChangedAt
+{
+  create;
+  update;
+  delete;
+
+  association _BillItems { create; with draft; }
+
+  field ( readonly, numbering : managed ) BillUuid;
+  field ( readonly ) LocalCreatedBy, LocalCreatedAt, LocalLastChangedBy, LocalLastChangedAt, LastChangedAt;
+
+  draft action Edit;
+  draft action Activate;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+
+  mapping for zhdr_ec57
+  {
+    BillUuid = bill_uuid;
+    BillNumber = bill_number;
+    CustomerName = customer_name;
+    BillingDate = billing_date;
+    TotalAmount = total_amount;
+    Currency = currency;
+    PaymentStatus = payment_status;
+    LocalCreatedBy = local_created_by;
+    LocalCreatedAt = local_created_at;
+    LocalLastChangedBy = local_last_changed_by;
+    LocalLastChangedAt = local_last_changed_at;
+    LastChangedAt = last_changed_at;
+  }
+}
+
+define behavior for ZI_ITM_EC57 alias BillItem
+implementation in class zbp_i_hdr_ec57_itm unique
+draft table zbill_itm_d57
+lock dependent by _BillHeader
+authorization dependent by _BillHeader
+etag master LocalLastChangedAt
+{
+
+
+  update;
+  delete;
+
+  field ( readonly, numbering : managed ) ItemUuid;
+  field ( readonly ) BillUuid;
+
+  association _BillHeader { with draft; }
+
+  mapping for zitm_ec57
+  {
+    ItemUuid = item_uuid;
+    BillUuid = bill_uuid;
+    ItemPosition = item_position;
+    ProductId = product_id;
+    Quantity = quantity;
+    Quantityunits = quantityunits;
+    UnitPrice = unit_price;
+    Subtotal = subtotal;
+    Currency = currency;
+    LocalCreatedBy = local_created_by;
+    LocalCreatedAt = local_created_at;
+    LocalLastChangedBy = local_last_changed_by;
+    LocalLastChangedAt = local_last_changed_at;
+    LastChangedAt = last_changed_at;
+  }
+}

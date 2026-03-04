@@ -1,0 +1,65 @@
+@Metadata.layer: #CORE
+@UI: {
+  headerInfo: {
+    typeName: 'Bill Item',
+    typeNamePlural: 'Bill Items',
+    title: { type: #STANDARD, label: 'Bill Item', value: 'ItemPosition' }
+  }
+}
+annotate entity ZC_ITM_EC57 with
+{
+  @UI.facet: [
+    {
+      id: 'BillItems',
+      purpose: #STANDARD,
+      type: #IDENTIFICATION_REFERENCE,
+      label: 'Item Details',
+      position: 10
+    }
+  ]
+
+  @UI.hidden: true
+  ItemUuid;
+
+  @UI.hidden: true
+  BillUuid;
+
+  @UI: { lineItem: [{position: 10, label: 'Item Position'}],
+         identification: [{ position: 10, label: 'Item Position' }] }
+  ItemPosition;
+
+  @UI: { lineItem: [{position: 20, label: 'Product ID'}],
+         identification: [{ position: 20, label: 'Product ID' }] }
+  ProductId;
+
+  @UI: { lineItem: [{position: 30, label: 'Quantity'}],
+         identification: [{ position: 30, label: 'Quantity' }] }
+  Quantity;
+
+  @UI.hidden: true
+  Quantityunits;
+  
+  @UI.hidden: true
+  Currency;
+
+  @UI: { lineItem: [{position: 40, label: 'Unit Price'}],
+         identification: [{ position: 40, label: 'Unit Price' }] }
+  UnitPrice;
+  
+  @UI: { lineItem: [{position: 50, label: 'Subtotal'}],
+         identification: [{ position: 50, label: 'Subtotal' }] }
+  Subtotal;
+
+  @UI.hidden: true
+  LocalCreatedBy;
+
+  @UI.hidden: true
+  LocalCreatedAt;
+
+  @UI.hidden: true
+  LocalLastChangedBy;
+
+  @UI.hidden: true
+  LocalLastChangedAt;
+
+}

@@ -1,0 +1,5 @@
+@EndUserText.label: 'Service Definition for Billing App'
+define service ZUI_BILL_EC57 {
+  expose ZC_HDR_EC57;
+  expose ZC_ITM_EC57;
+}

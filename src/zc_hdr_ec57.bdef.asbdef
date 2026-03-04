@@ -1,0 +1,26 @@
+projection;
+strict ( 2 );
+use draft;
+
+define behavior for ZC_HDR_EC57 alias BillHeader
+{
+  use create;
+  use update;
+  use delete;
+
+  use action Edit;
+  use action Resume;
+  use action Activate;
+  use action Discard;
+  use action Prepare;
+
+  use association _BillItems { create; with draft; }
+}
+
+define behavior for ZC_ITM_EC57 alias BillItem
+{
+  use update;
+  use delete;
+
+  use association _BillHeader { with draft; }
+}
